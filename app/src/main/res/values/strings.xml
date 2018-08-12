@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">ConferryAPP</string>
+    <string name="iti_one">HORARIO</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="image_1_Main">ITINERARIO</string>
+    <string name="title_1_Main">REGISTRO</string>
+    <string name="text_3_login">Ingresar a ConferryAPP</string>
+    <string name="text_3_Main">LOGIN</string>
+    <string name="text_4_Main">FORUM</string>
+    <string name="text_5_Main">REGISTRAR</string>
+    <string name="text_1_Register">NOMBRE</string>
+    <string name="text_2_Register">APELLIDO</string>
+    <string name="text_3_Register">C.I.</string>
+    <string name="text_4_Register">CORREO</string>
+    <string name="text_5_Register">DIRECCION</string>
+    <string name="text_6_Register">USUARIO</string>
+    <string name="text_7_Register">CONTRASEÑA</string>
+
+
+    <string name="edit_text_1_Register">INGRESE NOMBRE</string>
+    <string name="edit_text_2_Register">INGRESE APELLIDO</string>
+    <string name="edit_text_3_Register">INGRESE C.I.</string>
+    <string name="edit_text_4_Register">INGRESE CORREO</string>
+    <string name="edit_text_5_Register">INGRESE DIRECCION</string>
+    <string name="edit_text_6_Register">INGRESE USUARIO</string>
+    <string name="edit_text_7_Register">INGRESE CONTRASEÑA</string>
+
+    <string name="button_1_Register">CANCELAR</string>
+    <string name="button_2_Register">REGISTRAR</string>
+
+    //reCAPTCHAs
+    <string name="my_site_key">6Len6mYUAAAAAEPuzmTeEHECH5OPLrzF-3xdr_VU</string>
+
+
+</resources>

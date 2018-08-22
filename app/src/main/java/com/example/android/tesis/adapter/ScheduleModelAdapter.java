@@ -12,18 +12,17 @@ import com.example.android.tesis.model.Itinerario;
 
 import java.util.List;
 
-import static android.R.attr.text;
 
 
 /**
  * Created by rjsan on 5/13/2018.
  */
 
-public class ModelItinerarioAdapter extends ArrayAdapter<Itinerario>{
+public class ScheduleModelAdapter extends ArrayAdapter<Itinerario>{
 
     int conta=0;
     String num;
-    public ModelItinerarioAdapter(Context scheduleClass, int resource, List<Itinerario> listItinerario) {
+    public ScheduleModelAdapter(Context scheduleClass, int resource, List<Itinerario> listItinerario) {
 
         super(scheduleClass, resource, listItinerario);
 

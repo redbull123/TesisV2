@@ -1,7 +1,9 @@
 package com.example.android.tesis.activity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -57,6 +59,7 @@ public class Login extends AppCompatActivity {
 
 
         final EditText passText = (EditText) findViewById(R.id.pass);
+        Button buttonContinue = (Button) findViewById(R.id.login);
 
 
         passText.setOnClickListener(new View.OnClickListener() {
@@ -75,9 +78,44 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        buttonContinue.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                new Login.AsyncCaller().execute();
+            }
+        });
+
     }
 
-    public void input(View view) {
+
+    private class AsyncCaller extends AsyncTask<Void, Void, Void> {
+        ProgressDialog pdLoading = new ProgressDialog(Login.this);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pdLoading.setMessage("\tLoading...");
+            pdLoading.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            loggin();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            pdLoading.dismiss();
+        }
+    }
+
+
+    public void loggin() {
 
         SecurePassword sp = new SecurePassword();
 
@@ -105,38 +143,36 @@ public class Login extends AppCompatActivity {
             Log.d(LOG_TAG, "el apiService está inicializado");
         }
 
-        Call<List<Usuario>> call = apiService.doGetUsuariosList();
+        Call<Usuario> call = apiService.doGetUsuariosList(user);
 
-        call.enqueue(new Callback<List<Usuario>>() {
+        call.enqueue(new Callback<Usuario>() {
 
             @Override
-            public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
-                int flag = 0;
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                Log.i(LOG_TAG, "whatsup con response" + response);
+                Log.i(LOG_TAG, "whatsup con response" + response.body());
 
-                for (Usuario userRec : response.body()) {
+                if (response.isSuccessful()){
+                    if (user.equals(response.body().getUsuario())) {
 
-                    if (user.equals(userRec.getUsuario())) {
-                        if (encrytPassword.equals(userRec.getPassword())) {
-                            flag = 2;
+                        Log.i(LOG_TAG, "Login correcto" +encrytPassword +" y "+ response.body().getPassword());
+
+                        if (encrytPassword.equals(response.body().getPassword())) {
+                            Log.i(LOG_TAG, "Login correcto");
+                            HomeUser.onLoggeado(1);
+                            Intent iti = new Intent(Login.this, HomeUser.class);
+                            startActivity(iti);
                         } else {
-                            flag = 1;
+                            PopUp("Password Incorrecto");
                         }
+                    } else {
+                        PopUp("Usuario Incorrecto");
                     }
-                }
-                if (flag == 2) {
-                    Log.i(LOG_TAG, "Login correcto");
-                    HomeUser.onLoggeado(1);
-                    Intent iti = new Intent(Login.this, HomeUser.class);
-                    startActivity(iti);
-                } else if (flag == 1) {
-                    PopUp("Password Incorrecto");
-                } else if (flag == 0) {
-                    PopUp("Usuario Incorrecto");
-                }
+            }
             }
 
             @Override
-            public void onFailure(Call<List<Usuario>> call, Throwable t) {
+            public void onFailure(Call<Usuario> call, Throwable t) {
                 Log.e(LOG_TAG, "fallo con " + t.getMessage());
                 call.cancel();
             }

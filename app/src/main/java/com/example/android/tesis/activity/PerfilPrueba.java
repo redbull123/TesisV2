@@ -16,7 +16,7 @@ public class PerfilPrueba extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pay_layout);
+        setContentView(R.layout.pay_credit_layout);
 
     }
 }

@@ -29,7 +29,6 @@
         <activity android:name=".activity.Register" />
         <activity android:name=".activity.HomeUser"/>
         <activity android:name=".activity.PerfilPrueba"/>
-        <activity android:name=".utils.PruebaCapchat"/>
     </application>
 
 </manifest>

@@ -67,7 +67,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
         android:enabled="false"
-        android:onClick="input"
         android:text="@string/text_3_login" />
 
 </LinearLayout>

@@ -30,19 +30,24 @@
     <string name="text_7_Register">CONTRASEÑA</string>
 
 
-    <string name="edit_text_1_Register">INGRESE NOMBRE</string>
-    <string name="edit_text_2_Register">INGRESE APELLIDO</string>
-    <string name="edit_text_3_Register">INGRESE C.I.</string>
-    <string name="edit_text_4_Register">INGRESE CORREO</string>
-    <string name="edit_text_5_Register">INGRESE DIRECCION</string>
-    <string name="edit_text_6_Register">INGRESE USUARIO</string>
-    <string name="edit_text_7_Register">INGRESE CONTRASEÑA</string>
+    <string name="edit_text_1_Register">Ingrese nombre</string>
+    <string name="edit_text_2_Register">Ingrese apellido</string>
+    <string name="edit_text_3_Register">Ingrese C.I.</string>
+    <string name="edit_text_4_Register">Ingrese Correo</string>
+    <string name="edit_text_5_Register">Ingrese Username</string>
+    <string name="edit_text_6_Register">Ingrese Contraseña</string>
+    <string name="edit_text_7_Register">Repita Contraseña</string>
 
     <string name="button_1_Register">CANCELAR</string>
     <string name="button_2_Register">REGISTRAR</string>
 
-    //reCAPTCHAs
-    <string name="my_site_key">6Len6mYUAAAAAEPuzmTeEHECH5OPLrzF-3xdr_VU</string>
+
+    <string name="text_1_pay">Numero de tarjeta</string>
+    <string name="edittext_1_pay">1234 1234 1234 1234</string>
+    <string name="edittext_2_pay">Fecha de Vencimiento</string>
+    <string name="edittext_3_pay">CVC</string>
+    <string name="edittext_4_pay">Tarjeta Habiente</string>
+    <string name="edittext_5_pay">Continuar</string>
 
 
 </resources>

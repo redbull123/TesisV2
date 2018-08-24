@@ -28,8 +28,8 @@ public interface APIService {
     @GET(SERVER_API_URL + "/barco")
     Call<List<Barco>> doGetBarcosList();
 
-    @GET(SERVER_API_URL + "/itinerario")
-    Call<List<Itinerario>> doGetItinerariosList();
+    @GET(SERVER_API_URL + "/itinerario/findschedule/{itinerario}/")
+    Call<List<Itinerario>> doGetItinerariosList(@Path("itinerario") String date);
 
     @GET(SERVER_API_URL + "/pasajero")
     Call<List<Pasajero>> doGetPasajerosList();

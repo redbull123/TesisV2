@@ -21,27 +21,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|left"
-            android:text="Ruta"
+            android:text="ITINERARIO"
+            android:textSize="16dp"
             android:textStyle="bold"/>
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <RadioButton
-                android:id="@+id/cp_radio_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Caracas-Porlamar"
-                android:textAppearance="?android:textAppearanceMedium"
-                />
-            <RadioButton
-                android:id="@+id/pc_radio_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Porlamar-Caracas"
-                android:textAppearance="?android:textAppearanceMedium"
-                />
-        </RadioGroup>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -51,27 +34,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Fecha"/>
-        <Spinner
-            android:id="@+id/sort_by_spinner_date"
+        <Button
+            android:id="@+id/sort_by_editext_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hora"/>
-        <Spinner
-            android:id="@+id/sort_by_spinner_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:hint=" Seleccione una fecha " />
         </LinearLayout>
         <Button
+            android:id="@+id/search_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="BUSCAR"

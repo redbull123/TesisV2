@@ -1,16 +1,27 @@
 package com.example.android.tesis.activity;
 
+import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.tesis.DatePickerFragment;
 import com.example.android.tesis.R;
 import com.example.android.tesis.adapter.ScheduleModelAdapter;
 import com.example.android.tesis.model.Itinerario;
@@ -18,9 +29,13 @@ import com.example.android.tesis.my_interface.APIService;
 import com.example.android.tesis.network.ApiUtils;
 import com.example.android.tesis.network.RetrofitInstance;
 
+import org.w3c.dom.Text;
+
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -31,18 +46,17 @@ import retrofit2.Response;
 /**
  * Created by rjsan on 5/13/2018.
  */
-public class Schedule extends AppCompatActivity {
+public class Schedule extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private static final String LOG_TAG = Schedule.class.getSimpleName();
     private List<Itinerario> scheduleList = new ArrayList<>();
     private APIService apiService;
+    String src = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedule_layout);
-
-        new AsyncCaller().execute();
 
         ListView list = (ListView) findViewById(R.id.list);
 
@@ -59,7 +73,67 @@ public class Schedule extends AppCompatActivity {
                 }
             }
         });
+
+
+        Button dateSelector = (Button) findViewById(R.id.sort_by_editext_date);
+
+        dateSelector.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment datePicker = new DatePickerFragment();
+                datePicker.show(getSupportFragmentManager(), "date picker");
+            }
+        });
+
+        Button searchSchedule = (Button) findViewById(R.id.search_list);
+
+        searchSchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AsyncCaller().execute();
+            }
+        });
+
+
     }
+
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        String currentDateString = DateFormat.getDateInstance(DateFormat.MEDIUM).format(c.getTime());
+
+        Button dateSelector = (Button) findViewById(R.id.sort_by_editext_date);
+        dateSelector.setText(currentDateString);
+        Log.d(LOG_TAG, currentDateString);
+
+    }
+
+    public String obtainDate(String time){
+        String inputPattern = "MMM d, yyyy";
+        String outputPattern = "yyyy-MM-dd'T'HH:mm:ssZ";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null;
+        String str= null;
+        try {
+            date = inputFormat.parse(time);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Log.d(LOG_TAG, str);
+
+        return str;
+    }
+
+
     private class AsyncCaller extends AsyncTask<Void, Void, Void> {
         ProgressDialog pdLoading = new ProgressDialog(Schedule.this);
 
@@ -77,12 +151,18 @@ public class Schedule extends AppCompatActivity {
             } else {
                 Log.d(LOG_TAG, "el apiService está inicializado");
             }
-            Call<List<Itinerario>> call = apiService.doGetItinerariosList();
+
+            Button dateSelector = (Button) findViewById(R.id.sort_by_editext_date);
+
+            Log.d(LOG_TAG, obtainDate((String) dateSelector.getText()));
+
+            Call<List<Itinerario>> call = apiService.doGetItinerariosList(obtainDate((String) dateSelector.getText()));
             call.enqueue(new Callback<List<Itinerario>>() {
                 @Override
                 public void onResponse(Call<List<Itinerario>> call, Response<List<Itinerario>> response) {
                     Log.d(LOG_TAG, response.code() + " ");
                     scheduleList = response.body();
+
                     int i = 0;
                     for(Itinerario iti : scheduleList){
                         iti.setFecha(parseDateToddMMyyyy(iti.getFecha()));
@@ -93,7 +173,6 @@ public class Schedule extends AppCompatActivity {
                     ScheduleModelAdapter adapter = new ScheduleModelAdapter(Schedule.this, 0, scheduleList);
                     listView.setAdapter(adapter);
                 }
-
                 @Override
                 public void onFailure(Call<List<Itinerario>> call, Throwable t) {
                     Log.e(LOG_TAG, "fallo con " + t.getMessage());
@@ -129,7 +208,6 @@ public class Schedule extends AppCompatActivity {
         }
         return str;
     }
-
 
     public String parseTimeToddMMyyyy(String time) {
         String inputPattern = "yyyy-MM-dd'T'HH:mm:ssZ";

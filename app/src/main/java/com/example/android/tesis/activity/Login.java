@@ -62,21 +62,11 @@ public class Login extends AppCompatActivity {
         Button buttonContinue = (Button) findViewById(R.id.login);
 
 
-        passText.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-
-                user = userText.getText().toString();
-                password = passText.getText().toString();
-                if(!user.equals("") && !password.equals(""))
-                {
-                    Button regis = (Button) findViewById(R.id.login);
-                    regis.setEnabled(true);
-                }
-            }
-        });
+        if(!userText.getText().toString().equals("") && !passText.getText().toString().equals(""))
+        {
+            Button regis = (Button) findViewById(R.id.login);
+            regis.setEnabled(true);
+        }
 
         buttonContinue.setOnClickListener(new View.OnClickListener() {
 
@@ -88,6 +78,7 @@ public class Login extends AppCompatActivity {
         });
 
     }
+
 
 
     private class AsyncCaller extends AsyncTask<Void, Void, Void> {

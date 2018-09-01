@@ -47,6 +47,7 @@ public class Schedule extends AppCompatActivity implements DatePickerDialog.OnDa
     private List<Itinerario> scheduleList = new ArrayList<>();
     private APIService apiService;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    static int selectedRoute=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +60,19 @@ public class Schedule extends AppCompatActivity implements DatePickerDialog.OnDa
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
+                Itinerario x = (Itinerario) adapterView.getItemAtPosition(position);
+
+
+                selectedRoute = x.getId();
+                Log.d(LOG_TAG, "valor en el listener" + selectedRoute);
+
                 if (HomeUser.ifLoggeado() == 1) {
-                    Intent iti = new Intent(Schedule.this, PerfilPrueba.class);
+                    Intent iti = new Intent(Schedule.this, TicketActivity.class);
                     startActivity(iti);
+
                 } else if (HomeUser.ifLoggeado() == 0) {
-                    Intent iti = new Intent(Schedule.this, Login.class);
+
+                    Intent iti = new Intent(Schedule.this, TicketActivity.class);
                     startActivity(iti);
                 }
             }
@@ -96,6 +105,11 @@ public class Schedule extends AppCompatActivity implements DatePickerDialog.OnDa
         });
     }
 
+    public static int prueba(){
+        Log.d(LOG_TAG, "valor en el metodo" + selectedRoute);
+
+        return selectedRoute;
+    }
     public void checkDate() {
         Button dateSelectorCheck = (Button) findViewById(R.id.sort_by_editext_date);
         Log.d(LOG_TAG, "check one" + dateSelectorCheck.getText().toString());
@@ -109,16 +123,17 @@ public class Schedule extends AppCompatActivity implements DatePickerDialog.OnDa
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
+        SimpleDateFormat formateador = new SimpleDateFormat("MMM d, yyyy");
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        String currentDateString = DateFormat.getDateInstance(DateFormat.MEDIUM).format(c.getTime());
-
+       // String currentDateString = DateFormat.getDateInstance(DateFormat.MEDIUM).format(c.getTime());
+        Log.d(LOG_TAG, "fecha de formateada" + formateador.format(c.getTime()));
         Button dateSelector = (Button) findViewById(R.id.sort_by_editext_date);
-        dateSelector.setText(currentDateString);
+        dateSelector.setText(formateador.format(c.getTime()));
         checkDate();
-        Log.d(LOG_TAG, currentDateString);
+       // Log.d(LOG_TAG, currentDateString);
 
     }
 
@@ -139,8 +154,7 @@ public class Schedule extends AppCompatActivity implements DatePickerDialog.OnDa
 
         Log.d(LOG_TAG, str);
 
-        return str;
-    }
+        return str;}
 
     @Override
     public void onRefresh() {
@@ -153,21 +167,25 @@ public class Schedule extends AppCompatActivity implements DatePickerDialog.OnDa
         }, 2000);
     }
 
-    public String parseDateToddMMyyyy(String time) {
-        String inputPattern = "yyyy-MM-dd'T'HH:mm:ssZ";
-        String outputPattern = "EEE, MMM d";
-        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
-        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+    public String parseDateToddMMyyyy(String timeD) {
+        Log.d(LOG_TAG, "tiempo de entrada "+ timeD);
 
-        Date date = null;
-        String str = null;
+        String inputPatternDate = "yyyy-MM-dd'T'HH:mm:ssZ";
+        String outputPatternDate = "EEE, MMM d";
+        SimpleDateFormat inputFormatDate = new SimpleDateFormat(inputPatternDate);
+        SimpleDateFormat outputFormatDate = new SimpleDateFormat(outputPatternDate);
+
+        Date mDate = null;
+        String strDate = null;
         try {
-            date = inputFormat.parse(time);
-            str = outputFormat.format(date);
+            mDate = inputFormatDate.parse(timeD);
+            strDate = outputFormatDate.format(mDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return str;
+        Log.d(LOG_TAG, "tiempo de salida"+ strDate);
+
+        return strDate;
     }
 
     public String parseTimeToddMMyyyy(String time) {
@@ -207,9 +225,9 @@ public class Schedule extends AppCompatActivity implements DatePickerDialog.OnDa
 
             Button dateSelector = (Button) findViewById(R.id.sort_by_editext_date);
 
-            Log.d(LOG_TAG, obtainDate((String) dateSelector.getText()));
+            Log.d(LOG_TAG, "lo que se manda "+ dateSelector.getText().toString());
 
-            Call<List<Itinerario>> call = apiService.doGetItinerariosList(obtainDate((String) dateSelector.getText()));
+            Call<List<Itinerario>> call = apiService.doGetItinerariosList(obtainDate(dateSelector.getText().toString()));
             call.enqueue(new Callback<List<Itinerario>>() {
                 @Override
                 public void onResponse(Call<List<Itinerario>> call, Response<List<Itinerario>> response) {
@@ -233,8 +251,6 @@ public class Schedule extends AppCompatActivity implements DatePickerDialog.OnDa
                         Toast.makeText(Schedule.this, "No se Encontro rutas para la fecha indicada",
                                 Toast.LENGTH_LONG).show();
                     }
-
-
                 }
 
                 @Override

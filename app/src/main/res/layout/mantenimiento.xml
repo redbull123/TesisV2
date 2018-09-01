@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     android:background="@drawable/index"
     android:orientation="vertical"
-    tools:context=".activity.HomeUser">
+    tools:context=".activity.TicketActivity">
 
     <TextView
+        android:id="@+id/mantenimiento_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="EN MANTENIMIENTO" />

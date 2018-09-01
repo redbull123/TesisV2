@@ -31,6 +31,12 @@ public interface APIService {
     @GET(SERVER_API_URL + "/itinerario/findschedule/{itinerario}/")
     Call<List<Itinerario>> doGetItinerariosList(@Path("itinerario") String date);
 
+    @GET(SERVER_API_URL + "/itinerario/capacidadPuesto/{id}/")         // Se trae un objeto tipo Barco
+    Call<Barco> doGetCapacityPuesto(@Path("id") int id);
+
+    @GET(SERVER_API_URL + "/boleto/ticket/{id}/")           // Se trae una lista con objetos Boleto
+    Call<List<Boleto>> doGetTicket(@Path("id") int id);
+
     @GET(SERVER_API_URL + "/pasajero")
     Call<List<Pasajero>> doGetPasajerosList();
 
@@ -41,7 +47,7 @@ public interface APIService {
     Call<List<Boleto>> doGetBoletasList();
 
     @GET(SERVER_API_URL + "/usuario/finduser/{usuario}/")
-    Call<Usuario> doGetUsuariosList(@Path("usuario") String user);
+    Call<Usuario> doGetUsuarios(@Path("usuario") String user);
 
     @POST(SERVER_API_URL + "/usuario")
     Call<Usuario> doCreateUser(@Body Usuario user);

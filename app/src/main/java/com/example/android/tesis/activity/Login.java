@@ -43,6 +43,8 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.login_layout);
 
         TextView forgetPassword = (TextView) findViewById(R.id.forgetPassword);
+        final EditText userEditText = (EditText) findViewById(R.id.user);
+        final EditText passEditText = (EditText) findViewById(R.id.pass);
 
         forgetPassword.setOnClickListener(new View.OnClickListener() {
 
@@ -53,33 +55,16 @@ public class Login extends AppCompatActivity {
                 startActivity(iti);
             }
         });
-
-
-        final EditText userText = (EditText) findViewById(R.id.user);
-
-
-        final EditText passText = (EditText) findViewById(R.id.pass);
         Button buttonContinue = (Button) findViewById(R.id.login);
-
-
-        if(!userText.getText().toString().equals("") && !passText.getText().toString().equals(""))
-        {
-            Button regis = (Button) findViewById(R.id.login);
-            regis.setEnabled(true);
-        }
-
         buttonContinue.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
 
-                new Login.AsyncCaller().execute();
-            }
+                user = userEditText.getText().toString();
+                password = passEditText.getText().toString();
+                new Login.AsyncCaller().execute(); }
         });
-
     }
-
-
 
     private class AsyncCaller extends AsyncTask<Void, Void, Void> {
         ProgressDialog pdLoading = new ProgressDialog(Login.this);
@@ -93,7 +78,6 @@ public class Login extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-
             loggin();
             return null;
         }
@@ -105,28 +89,14 @@ public class Login extends AppCompatActivity {
         }
     }
 
-
     public void loggin() {
-
         SecurePassword sp = new SecurePassword();
+        final String encrytPassword = sp.getPasswordHash(password);
 
         if (conteoPalabrasEspacio(user) >= 2) {
-            PopUp("No se puede ingresar un usuario con espacios");
-        }
-
-
-        if (password.length() != 0) {
-            if (password.length() < 4) {
-                PopUp("La contrasena debe ser mayor a 4 caracteres");
-            } else if (password.length() > 10) {
-                PopUp("La contrasena debe ser menor a 10 caracteres");
-            }
-        } else if (password.length() == 0) {
-            PopUp("Campo del password vacio");
-        }
-
-
-        final String encrytPassword = sp.getPasswordHash(password);
+            PopUp("No se puede ingresar un usuario con espacios"); }
+         if (password.length() == 0) {
+            PopUp("Campo del password vacio"); }
 
         if (apiService == null) {
             apiService = RetrofitInstance.getRetrofitInstance(ApiUtils.BASE_URL).create(APIService.class);
@@ -134,20 +104,14 @@ public class Login extends AppCompatActivity {
             Log.d(LOG_TAG, "el apiService está inicializado");
         }
 
-        Call<Usuario> call = apiService.doGetUsuariosList(user);
+        Call<Usuario> call = apiService.doGetUsuarios(user);
 
         call.enqueue(new Callback<Usuario>() {
 
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
-                Log.i(LOG_TAG, "whatsup con response" + response);
-                Log.i(LOG_TAG, "whatsup con response" + response.body());
-
                 if (response.isSuccessful()){
                     if (user.equals(response.body().getUsuario())) {
-
-                        Log.i(LOG_TAG, "Login correcto" +encrytPassword +" y "+ response.body().getPassword());
-
                         if (encrytPassword.equals(response.body().getPassword())) {
                             Log.i(LOG_TAG, "Login correcto");
                             HomeUser.onLoggeado(1);

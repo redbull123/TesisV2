@@ -8,6 +8,7 @@ public class ApiUtils {
 
     public static final String BASE_URL = "http://192.168.1.4:8080/";
 
-    private ApiUtils() {
+    private ApiUtils(){
     }
+
 }

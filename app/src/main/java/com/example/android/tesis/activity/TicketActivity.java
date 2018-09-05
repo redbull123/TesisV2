@@ -6,20 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.android.tesis.R;
-import com.example.android.tesis.adapter.ScheduleModelAdapter;
-import com.example.android.tesis.model.Barco;
-import com.example.android.tesis.model.Boleto;
-import com.example.android.tesis.model.Itinerario;
+import com.example.android.tesis.model.Ticket;
 import com.example.android.tesis.my_interface.APIService;
 import com.example.android.tesis.network.ApiUtils;
 import com.example.android.tesis.network.RetrofitInstance;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,6 +36,7 @@ public class TicketActivity extends AppCompatActivity {
 
     }
 
+
     private class AsyncCaller extends AsyncTask<Void, Void, Void> {
         ProgressDialog pdLoading = new ProgressDialog(TicketActivity.this);
 
@@ -57,7 +51,6 @@ public class TicketActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
 
             callShip();
-            callTicket();
             return null;
         }
 
@@ -69,7 +62,7 @@ public class TicketActivity extends AppCompatActivity {
 
     }
 
-    public void callShip(){
+    public void callShip() {
 
         if (apiService == null) {
             apiService = RetrofitInstance.getRetrofitInstance(ApiUtils.BASE_URL).create(APIService.class);
@@ -77,15 +70,16 @@ public class TicketActivity extends AppCompatActivity {
             Log.d(LOG_TAG, "el apiService está inicializado");
         }
 
-        Call<Barco> call = apiService.doGetCapacityPuesto(Schedule.selectedRoute);
-        call.enqueue(new Callback<Barco>() {
+        Call<Ticket> call = apiService.doGetCapacityPuesto(Schedule.selectedRoute);
+        call.enqueue(new Callback<Ticket>() {
             @Override
-            public void onResponse(Call<Barco> call, Response<Barco> response) {
+            public void onResponse(Call<Ticket> call, Response<Ticket> response) {
 
-                Log.d(LOG_TAG, "respuesta del servidor"+ response.body());
+                Log.d(LOG_TAG, "respuesta del servidor=  " + response.body()+".");
             }
+
             @Override
-            public void onFailure(Call<Barco> call, Throwable t) {
+            public void onFailure(Call<Ticket> call, Throwable t) {
                 Log.e(LOG_TAG, "fallo con " + t.getMessage());
                 call.cancel();
                 Toast.makeText(TicketActivity.this, "Problemas de Conexión",
@@ -95,29 +89,6 @@ public class TicketActivity extends AppCompatActivity {
 
     }
 
-    public void callTicket(){
 
-        if (apiService == null) {
-            apiService = RetrofitInstance.getRetrofitInstance(ApiUtils.BASE_URL).create(APIService.class);
-        } else {
-            Log.d(LOG_TAG, "el apiService está inicializado");
-        }
 
-        Call<List<Boleto>> call = apiService.doGetTicket(Schedule.selectedRoute);
-        call.enqueue(new Callback<List<Boleto>>() {
-            @Override
-            public void onResponse(Call<List<Boleto>> call, Response<List<Boleto>> response) {
-
-                Log.d(LOG_TAG, "respuesta del servidor"+ response.body());
-            }
-            @Override
-            public void onFailure(Call<List<Boleto>> call, Throwable t) {
-                Log.e(LOG_TAG, "fallo con " + t.getMessage());
-                call.cancel();
-                Toast.makeText(TicketActivity.this, "Problemas de Conexión",
-                        Toast.LENGTH_LONG).show();
-            }
-        });
-
-    }
 }

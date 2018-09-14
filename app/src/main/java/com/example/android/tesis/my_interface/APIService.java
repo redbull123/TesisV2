@@ -2,6 +2,7 @@ package com.example.android.tesis.my_interface;
 
 import com.example.android.tesis.model.Barco;
 import com.example.android.tesis.model.Boleto;
+import com.example.android.tesis.model.Confirmation;
 import com.example.android.tesis.model.Credit_Card;
 import com.example.android.tesis.model.Itinerario;
 import com.example.android.tesis.model.Pasajero;
@@ -32,11 +33,8 @@ public interface APIService {
     @GET(SERVER_API_URL + "/itinerario/findschedule/{itinerario}/")
     Call<List<Itinerario>> doGetItinerariosList(@Path("itinerario") String date);
 
-    @GET(SERVER_API_URL + "/itinerario/capacidadPuesto/{id}/")         // Se trae un objeto tipo Ticket
+    @GET(SERVER_API_URL + "/boleta/capacidadPuesto/{id}/")         // Se trae un objeto tipo Ticket
     Call<Ticket> doGetCapacityPuesto(@Path("id") int id);
-
-    @GET(SERVER_API_URL + "/boleto/ticket/{id}/")           // Se trae una lista con objetos Boleto
-    Call<List<Boleto>> doGetTicket(@Path("id") int id);
 
     @GET(SERVER_API_URL + "/pasajero")
     Call<List<Pasajero>> doGetPasajerosList();
@@ -58,6 +56,9 @@ public interface APIService {
 
     @GET(SERVER_API_URL + "/tipoboleto")
     Call<Credit_Card> doCheckCreditCard();
+
+    @POST(SERVER_API_URL + "/boleta/confirmation/{id}/{uid}")
+    Call<Confirmation> doCheckConfTicket(@Path("id") int id, @Body Ticket ticket, @Path("uid") int uid);
 
 
 }

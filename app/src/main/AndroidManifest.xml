@@ -30,6 +30,7 @@
         <activity android:name=".activity.HomeUser"/>
         <activity android:name=".activity.PerfilPrueba"/>
         <activity android:name=".activity.TicketActivity"/>
+        <activity android:name=".activity.PayCredit"/>
 
     </application>
 

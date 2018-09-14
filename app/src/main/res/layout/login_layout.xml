@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="5dp">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -53,13 +54,6 @@
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/forgetPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Olvido su contraseña?"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold" />
 
     <Button
         android:id="@+id/login"

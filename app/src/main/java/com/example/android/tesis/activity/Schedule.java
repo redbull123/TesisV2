@@ -72,7 +72,7 @@ public class Schedule extends AppCompatActivity implements DatePickerDialog.OnDa
 
                 } else if (HomeUser.ifLoggeado() == 0) {
 
-                    Intent iti = new Intent(Schedule.this, TicketActivity.class);
+                    Intent iti = new Intent(Schedule.this, Login.class);
                     startActivity(iti);
                 }
             }

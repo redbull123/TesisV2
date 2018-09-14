@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ConferryAPP</string>
+    <string name="app_name">FerryAPP</string>
     <string name="iti_one">HORARIO</string>
     <string name="title_activity_login">Sign in</string>
 
@@ -17,9 +17,9 @@
     </string>
     <string name="image_1_Main">ITINERARIO</string>
     <string name="title_1_Main">REGISTRO</string>
-    <string name="text_3_login">Ingresar a ConferryAPP</string>
+    <string name="text_3_login">Ingresar a FerryAPP</string>
     <string name="text_3_Main">LOGIN</string>
-    <string name="text_4_Main">FORUM</string>
+    <string name="text_4_Main">PLUS</string>
     <string name="text_5_Main">REGISTRAR</string>
     <string name="text_1_Register">NOMBRE</string>
     <string name="text_2_Register">APELLIDO</string>

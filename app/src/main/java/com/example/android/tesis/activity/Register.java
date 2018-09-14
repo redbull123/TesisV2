@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.example.android.tesis.model.Usuario;
 import com.example.android.tesis.my_interface.APIService;
 import com.example.android.tesis.network.ApiUtils;
 import com.example.android.tesis.network.RetrofitInstance;
+import com.example.android.tesis.utils.DatePickerFragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -123,6 +125,15 @@ public class Register extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                     popUp("Usuario creado con 'exito");
+                    Button continueLogin = (Button) findViewById(R.id.reg);
+
+                    continueLogin.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(Register.this, Login.class);
+                            startActivity(intent);
+                        }
+                    });
                 }
 
                 @Override
@@ -148,8 +159,6 @@ public class Register extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
-                                Intent route = new Intent(Register.this, Login.class);
-                                startActivity(route);
                             }
                         });
         AlertDialog alert = builder.create();

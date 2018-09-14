@@ -36,6 +36,8 @@ public class PayCredit extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pay_credit_layout);
     }
+
+
     public void continuePay(View view){
         String numbercard;
         String expirationdate;

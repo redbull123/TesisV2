@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.tesis.R;
 import com.example.android.tesis.utils.SecurePassword;
@@ -42,19 +43,9 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout);
 
-        TextView forgetPassword = (TextView) findViewById(R.id.forgetPassword);
         final EditText userEditText = (EditText) findViewById(R.id.user);
         final EditText passEditText = (EditText) findViewById(R.id.pass);
 
-        forgetPassword.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Intent iti = new Intent(Login.this, PerfilPrueba.class);
-                startActivity(iti);
-            }
-        });
         Button buttonContinue = (Button) findViewById(R.id.login);
         buttonContinue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +106,7 @@ public class Login extends AppCompatActivity {
                         if (encrytPassword.equals(response.body().getPassword())) {
                             Log.i(LOG_TAG, "Login correcto");
                             HomeUser.onLoggeado(1);
+                            HomeUser.whoLogin(response.body().getId());
                             Intent iti = new Intent(Login.this, HomeUser.class);
                             startActivity(iti);
                         } else {
@@ -129,6 +121,8 @@ public class Login extends AppCompatActivity {
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
                 Log.e(LOG_TAG, "fallo con " + t.getMessage());
+                Toast.makeText(Login.this, "Problemas de Conexión",
+                        Toast.LENGTH_LONG).show();
                 call.cancel();
             }
         });

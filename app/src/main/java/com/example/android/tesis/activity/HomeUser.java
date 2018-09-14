@@ -16,6 +16,7 @@ import com.example.android.tesis.R;
 public class HomeUser extends AppCompatActivity {
 
     static int var = 0;
+    static int idUser = 0;
 
     public static void onLoggeado(int flag) {
 
@@ -27,6 +28,10 @@ public class HomeUser extends AppCompatActivity {
         var = 0;
     }
 
+    public static void whoLogin(int id){
+        idUser=id;
+    }
+
     public static int ifLoggeado() {
         return var;
     }
@@ -34,47 +39,6 @@ public class HomeUser extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        TextView text1 = (TextView) findViewById(R.id.perfil);
-        text1.setText("PERFIL");
-        ImageView ima2 = (ImageView) findViewById(R.id.outside_image);
-        ima2.setImageResource(R.drawable.ic_clear_black_48dp);
-        TextView text2 = (TextView) findViewById(R.id.outside);
-        text2.setText("FINALIZAR SESION");
-
-        View perfil = findViewById(R.id.log);
-        perfil.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Intent iti = new Intent(HomeUser.this, PerfilPrueba.class);
-                startActivity(iti);
-            }
-        });
-
-        View out = findViewById(R.id.regis);
-        out.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                offloggeado();
-                Intent iti = new Intent(HomeUser.this, MainActivity.class);
-                startActivity(iti);
-            }
-        });
-
-        View schedule = findViewById(R.id.itine);
-        schedule.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Intent iti = new Intent(HomeUser.this, Schedule.class);
-                startActivity(iti);
-            }
-        });
-
+        setContentView(R.layout.perfil);
     }
 }

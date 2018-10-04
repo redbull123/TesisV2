@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
 import com.example.android.tesis.R;
+import com.example.android.tesis.network.MainBluetooth;
 
 
 public class MainActivity extends Activity {
@@ -47,16 +49,15 @@ public class MainActivity extends Activity {
             }
         });
 
-        View foru = findViewById(R.id.forum);
-        foru.setOnClickListener(new View.OnClickListener() {
-
+        View plusMain = findViewById(R.id.plus_main);
+        plusMain.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
-                Intent iti = new Intent(MainActivity.this, Login.class);
+                Intent iti = new Intent(MainActivity.this, MainBluetooth.class);
                 startActivity(iti);
             }
         });
     }
+
 
 }

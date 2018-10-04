@@ -11,16 +11,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.tesis.R;
-import com.example.android.tesis.utils.SecurePassword;
 import com.example.android.tesis.model.Usuario;
 import com.example.android.tesis.my_interface.APIService;
 import com.example.android.tesis.network.ApiUtils;
 import com.example.android.tesis.network.RetrofitInstance;
-
-import java.util.List;
+import com.example.android.tesis.utils.SecurePassword;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,29 +30,18 @@ import retrofit2.Response;
 
 public class Login extends AppCompatActivity {
     private static final String LOG_TAG = Login.class.getSimpleName();
-    private APIService apiService;
-
     String user;
     String password;
+    private APIService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout);
 
-        TextView forgetPassword = (TextView) findViewById(R.id.forgetPassword);
         final EditText userEditText = (EditText) findViewById(R.id.user);
         final EditText passEditText = (EditText) findViewById(R.id.pass);
 
-        forgetPassword.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Intent iti = new Intent(Login.this, PerfilPrueba.class);
-                startActivity(iti);
-            }
-        });
         Button buttonContinue = (Button) findViewById(R.id.login);
         buttonContinue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,41 +49,27 @@ public class Login extends AppCompatActivity {
 
                 user = userEditText.getText().toString();
                 password = passEditText.getText().toString();
-                new Login.AsyncCaller().execute(); }
+                new Login.AsyncCaller().execute();
+            }
         });
     }
 
-    private class AsyncCaller extends AsyncTask<Void, Void, Void> {
-        ProgressDialog pdLoading = new ProgressDialog(Login.this);
+    @Override
+    public void onBackPressed(){
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pdLoading.setMessage("\tLoading...");
-            pdLoading.show();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            loggin();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            pdLoading.dismiss();
-        }
+        Login.super.onBackPressed();
     }
 
-    public void loggin() {
+    public void login() {
         SecurePassword sp = new SecurePassword();
         final String encrytPassword = sp.getPasswordHash(password);
 
         if (conteoPalabrasEspacio(user) >= 2) {
-            PopUp("No se puede ingresar un usuario con espacios"); }
-         if (password.length() == 0) {
-            PopUp("Campo del password vacio"); }
+            PopUp("No se puede ingresar un usuario con espacios");
+        }
+        if (password.length() == 0) {
+            PopUp("Campo del password vacio");
+        }
 
         if (apiService == null) {
             apiService = RetrofitInstance.getRetrofitInstance(ApiUtils.BASE_URL).create(APIService.class);
@@ -110,31 +83,37 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     if (user.equals(response.body().getUsuario())) {
                         if (encrytPassword.equals(response.body().getPassword())) {
-                            Log.i(LOG_TAG, "Login correcto");
-                            HomeUser.onLoggeado(1);
+                            HomeUser.onLogin(1);
+                            HomeUser.whoLogin(response.body().getId());
+                            if(Schedule.callSchedule==0){
                             Intent iti = new Intent(Login.this, HomeUser.class);
-                            startActivity(iti);
+                            startActivity(iti);}
+                            else if(Schedule.callSchedule==1){
+                                Schedule.callSchedule=0;
+                                onBackPressed();}
                         } else {
                             PopUp("Password Incorrecto");
                         }
                     } else {
                         PopUp("Usuario Incorrecto");
                     }
-            }
+                }
             }
 
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
-                Log.e(LOG_TAG, "fallo con " + t.getMessage());
+                Toast.makeText(Login.this, "Problemas de Conexión",
+                        Toast.LENGTH_LONG).show();
                 call.cancel();
             }
         });
     }
 
-    public int conteoPalabrasEspacio(String user){
+
+    public int conteoPalabrasEspacio(String user) {
 
         int conteoPalabras = 0;
         boolean palabra = false;
@@ -170,6 +149,34 @@ public class Login extends AppCompatActivity {
                         });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    private class AsyncCaller extends AsyncTask<Void, Void, Void> {
+        ProgressDialog pdLoading = new ProgressDialog(Login.this);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pdLoading.setMessage("\tLoading...");
+            pdLoading.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            login();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            pdLoading.dismiss();
+        }
+    }
+
+    public void continueRegister(View view){
+        Intent intent = new Intent(this, Register.class);
+        startActivity(intent);
     }
 
 }

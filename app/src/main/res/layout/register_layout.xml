@@ -8,22 +8,20 @@
     android:orientation="vertical"
     tools:context=".activity.Register">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/reg"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="center"
-        android:text="@string/title_1_Main"
-        android:textSize="15sp" />
-
+        android:layout_margin="5sp"
+        android:background="@drawable/borde_redondo"
+        android:text="@string/button_2_Register" />
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginBottom="5sp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
         android:background="@color/colorAccent">
 
         <LinearLayout
@@ -52,8 +50,8 @@
                         android:id="@+id/ingName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5sp"
+                        android:layout_marginRight="5sp"
                         android:gravity="center"
                         android:hint="@string/edit_text_1_Register"
                         android:singleLine="true" />
@@ -70,7 +68,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="5sp"
                     android:gravity="center"
                     android:src="@drawable/ic_supervisor_account_black_16dp" />
 
@@ -82,8 +80,8 @@
                         android:id="@+id/ingLast"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5sp"
+                        android:layout_marginRight="5sp"
                         android:gravity="center"
                         android:hint="@string/edit_text_2_Register"
                         android:singleLine="true" />
@@ -100,7 +98,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="5sp"
                     android:gravity="center"
                     android:src="@drawable/ic_fingerprint_black_16dp" />
 
@@ -112,8 +110,8 @@
                         android:id="@+id/ingCi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5sp"
+                        android:layout_marginRight="5sp"
                         android:digits="1234567890"
                         android:gravity="center"
                         android:hint="@string/edit_text_3_Register"
@@ -163,7 +161,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="5sp"
                     android:gravity="center"
                     android:src="@drawable/ic_account_circle_black_16dp" />
 
@@ -175,8 +173,8 @@
                         android:id="@+id/ingUser"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5sp"
+                        android:layout_marginRight="5sp"
                         android:gravity="center"
                         android:hint="@string/edit_text_5_Register"
                         android:maxLength="10"
@@ -187,7 +185,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="5sp"
                 android:gravity="center_horizontal|center_vertical"
                 android:orientation="horizontal">
 
@@ -195,7 +193,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="5sp"
                     android:gravity="center"
                     android:src="@drawable/ic_keyboard_black_16dp" />
 
@@ -229,10 +227,10 @@
                             android:id="@+id/ingAddress"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
+                            android:layout_marginBottom="5sp"
                             android:gravity="center"
-                            android:inputType="textPassword"
                             android:hint="@string/edit_text_7_Register"
+                            android:inputType="textPassword"
                             android:singleLine="true" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -243,31 +241,5 @@
 
     </android.support.v7.widget.CardView>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:orientation="horizontal"
-        android:padding="5dp">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:background="#FFFFFF"
-            android:onClick="cancelar"
-            android:text="@string/button_1_Register" />
-
-        <Button
-            android:id="@+id/reg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:background="#FFFFFF"
-            android:text="@string/button_2_Register" />
-    </RelativeLayout>
 
 </LinearLayout>

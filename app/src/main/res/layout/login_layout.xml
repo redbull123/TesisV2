@@ -11,7 +11,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:layout_margin="5dp"
+        android:background="@drawable/borde_redondo"
         android:orientation="vertical">
 
         <android.support.design.widget.TextInputLayout
@@ -53,19 +54,23 @@
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/forgetPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Olvido su contraseña?"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold" />
 
     <Button
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
+        android:background="@drawable/borde_redondo"
         android:text="@string/text_3_login" />
+
+
+    <Button
+        android:id="@+id/registrar_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:background="@drawable/borde_redondo"
+        android:text="@string/text_4_login"
+        android:onClick="continueRegister"/>
 
 </LinearLayout>

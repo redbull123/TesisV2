@@ -17,15 +17,14 @@ import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.android.tesis.utils.DatePickerFragment;
 import com.example.android.tesis.R;
 import com.example.android.tesis.adapter.ScheduleModelAdapter;
 import com.example.android.tesis.model.Itinerario;
 import com.example.android.tesis.my_interface.APIService;
 import com.example.android.tesis.network.ApiUtils;
 import com.example.android.tesis.network.RetrofitInstance;
+import com.example.android.tesis.utils.DatePickerFragment;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,11 +42,14 @@ import retrofit2.Response;
 public class Schedule extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, SwipeRefreshLayout.OnRefreshListener {
 
     private static final String LOG_TAG = Schedule.class.getSimpleName();
-    String src = null;
+    static int selectedRoute = 0;
+    static String route= null;
+    static String fecha = null;
+    static String hora = null;
     private List<Itinerario> scheduleList = new ArrayList<>();
     private APIService apiService;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    static int selectedRoute=0;
+    static int callSchedule=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,22 +64,22 @@ public class Schedule extends AppCompatActivity implements DatePickerDialog.OnDa
 
                 Itinerario x = (Itinerario) adapterView.getItemAtPosition(position);
 
-
                 selectedRoute = x.getId();
-                Log.d(LOG_TAG, "valor en el listener" + selectedRoute);
+                route = x.getRutaId().getRuta();
+                fecha=x.getFecha();
+                hora=x.getTime();
 
-                if (HomeUser.ifLoggeado() == 1) {
+                if (HomeUser.ifLogin() == 1) {
                     Intent iti = new Intent(Schedule.this, TicketActivity.class);
                     startActivity(iti);
 
-                } else if (HomeUser.ifLoggeado() == 0) {
-
-                    Intent iti = new Intent(Schedule.this, TicketActivity.class);
+                } else if (HomeUser.ifLogin() == 0) {
+                    callSchedule =1;
+                    Intent iti = new Intent(Schedule.this, Login.class);
                     startActivity(iti);
                 }
             }
         });
-
 
         Button dateSelector = (Button) findViewById(R.id.sort_by_editext_date);
 
@@ -88,7 +90,6 @@ public class Schedule extends AppCompatActivity implements DatePickerDialog.OnDa
                 datePicker.show(getSupportFragmentManager(), "date picker");
             }
         });
-
 
         Button searchSchedule = (Button) findViewById(R.id.search_list);
 
@@ -105,15 +106,9 @@ public class Schedule extends AppCompatActivity implements DatePickerDialog.OnDa
         });
     }
 
-    public static int prueba(){
-        Log.d(LOG_TAG, "valor en el metodo" + selectedRoute);
 
-        return selectedRoute;
-    }
     public void checkDate() {
         Button dateSelectorCheck = (Button) findViewById(R.id.sort_by_editext_date);
-        Log.d(LOG_TAG, "check one" + dateSelectorCheck.getText().toString());
-
         Button searchSchedule = (Button) findViewById(R.id.search_list);
         if (!dateSelectorCheck.getText().toString().equals("Seleccione una fecha")) {
             searchSchedule.setEnabled(true);
@@ -128,12 +123,10 @@ public class Schedule extends AppCompatActivity implements DatePickerDialog.OnDa
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-       // String currentDateString = DateFormat.getDateInstance(DateFormat.MEDIUM).format(c.getTime());
-        Log.d(LOG_TAG, "fecha de formateada" + formateador.format(c.getTime()));
+
         Button dateSelector = (Button) findViewById(R.id.sort_by_editext_date);
         dateSelector.setText(formateador.format(c.getTime()));
         checkDate();
-       // Log.d(LOG_TAG, currentDateString);
 
     }
 
@@ -152,9 +145,8 @@ public class Schedule extends AppCompatActivity implements DatePickerDialog.OnDa
             e.printStackTrace();
         }
 
-        Log.d(LOG_TAG, str);
-
-        return str;}
+        return str;
+    }
 
     @Override
     public void onRefresh() {
@@ -168,8 +160,6 @@ public class Schedule extends AppCompatActivity implements DatePickerDialog.OnDa
     }
 
     public String parseDateToddMMyyyy(String timeD) {
-        Log.d(LOG_TAG, "tiempo de entrada "+ timeD);
-
         String inputPatternDate = "yyyy-MM-dd'T'HH:mm:ssZ";
         String outputPatternDate = "EEE, MMM d";
         SimpleDateFormat inputFormatDate = new SimpleDateFormat(inputPatternDate);
@@ -183,7 +173,7 @@ public class Schedule extends AppCompatActivity implements DatePickerDialog.OnDa
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Log.d(LOG_TAG, "tiempo de salida"+ strDate);
+        Log.d(LOG_TAG, "tiempo de salida" + strDate);
 
         return strDate;
     }
@@ -225,13 +215,12 @@ public class Schedule extends AppCompatActivity implements DatePickerDialog.OnDa
 
             Button dateSelector = (Button) findViewById(R.id.sort_by_editext_date);
 
-            Log.d(LOG_TAG, "lo que se manda "+ dateSelector.getText().toString());
-
             Call<List<Itinerario>> call = apiService.doGetItinerariosList(obtainDate(dateSelector.getText().toString()));
             call.enqueue(new Callback<List<Itinerario>>() {
                 @Override
                 public void onResponse(Call<List<Itinerario>> call, Response<List<Itinerario>> response) {
                     scheduleList = response.body();
+                    Log.d(LOG_TAG, "TAMANO DE LA LISTA" + response.body().size());
                     if (response.body().size() != 0) {
                         int i = 0;
                         for (Itinerario iti : scheduleList) {
@@ -255,7 +244,6 @@ public class Schedule extends AppCompatActivity implements DatePickerDialog.OnDa
 
                 @Override
                 public void onFailure(Call<List<Itinerario>> call, Throwable t) {
-                    Log.e(LOG_TAG, "fallo con " + t.getMessage());
                     call.cancel();
                     Toast.makeText(Schedule.this, "Problemas de Conexión",
                             Toast.LENGTH_LONG).show();

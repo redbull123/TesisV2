@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +37,7 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_layout);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Button buttonReg = (Button) findViewById(R.id.reg);
         buttonReg.setOnClickListener(new View.OnClickListener() {
@@ -47,29 +49,18 @@ public class Register extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed(){
+        Intent myIntent = new Intent(this, MainActivity.class);
+        startActivity(myIntent);
+    }
 
-    private class AsyncCaller extends AsyncTask<Void, Void, Void> {
-        ProgressDialog pdLoading = new ProgressDialog(Register.this);
+@Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pdLoading.setMessage("\tLoading...");
-            pdLoading.show();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            registerUser();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            pdLoading.dismiss();
-        }
     }
 
     public void registerUser() {
@@ -115,14 +106,21 @@ public class Register extends AppCompatActivity {
                 Log.d(LOG_TAG, "el apiService está inicializado");
             }
 
-            Log.i(LOG_TAG,"Va a usar el ApiService: " + apiService.toString());
-
             Call<Usuario> call = apiService.doCreateUser(user);
             call.enqueue(new Callback<Usuario>() {
 
                 @Override
                 public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                     popUp("Usuario creado con 'exito");
+                    Button continueLogin = (Button) findViewById(R.id.reg);
+
+                    continueLogin.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(Register.this, Login.class);
+                            startActivity(intent);
+                        }
+                    });
                 }
 
                 @Override
@@ -131,9 +129,7 @@ public class Register extends AppCompatActivity {
                     popUp("Falla al crear el usuario");
                 }
             });
-        }
-
-        else {
+        } else {
             Toast.makeText(Register.this, "Campo Vacio",
                     Toast.LENGTH_LONG).show();
         }
@@ -148,8 +144,6 @@ public class Register extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
-                                Intent route = new Intent(Register.this, Login.class);
-                                startActivity(route);
                             }
                         });
         AlertDialog alert = builder.create();
@@ -160,6 +154,30 @@ public class Register extends AppCompatActivity {
 
         Intent route = new Intent(this, MainActivity.class);
         startActivity(route);
+    }
+
+    private class AsyncCaller extends AsyncTask<Void, Void, Void> {
+        ProgressDialog pdLoading = new ProgressDialog(Register.this);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pdLoading.setMessage("\tLoading...");
+            pdLoading.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            registerUser();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            pdLoading.dismiss();
+        }
     }
 
 

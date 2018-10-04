@@ -1,46 +1,380 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tool="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tool:context=".activity.TicketActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_margin="16dp"
-        android:padding="16dp"
         android:background="@color/cardview_shadow_start_color"
-        android:gravity="center">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Información"
-                android:textSize="16dp"
-                android:textStyle="bold"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"/>
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Información"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LISTADO"
-        android:textSize="20dp"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:background="#FFFFFF"
-        />
+        android:text="Boletos:" />
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/rv"
-            />
+            android:layout_marginEnd="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:text="Adulto" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Disponible:" />
+
+            <TextView
+                android:id="@+id/avaibable_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="0" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="20dp">
+
+            <Button
+                android:id="@+id/less_one"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:onClick="decrementOne"
+                android:text="-" />
+
+            <TextView
+                android:id="@+id/count_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0" />
+
+            <Button
+                android:id="@+id/plus_one"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:onClick="incrementOne"
+                android:text="+" />
+
+            <TextView
+                android:id="@+id/total_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Bs.0" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Niño" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Disponible:" />
+
+        <TextView
+            android:id="@+id/avaibable_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0" />
+
+        <Button
+            android:id="@+id/less_two"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:onClick="decrementTwo"
+            android:text="-" />
+
+        <TextView
+            android:id="@+id/count_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0" />
+
+        <Button
+            android:id="@+id/plus_two"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:onClick="incrementTwo"
+            android:text="+" />
+
+        <TextView
+            android:id="@+id/total_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bs.0" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vehiculo" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Carros" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Disponible:" />
+
+        <TextView
+            android:id="@+id/avaibable_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0" />
+
+        <Button
+            android:id="@+id/less_three"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:onClick="decrementThree"
+            android:text="-" />
+
+        <TextView
+            android:id="@+id/count_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0" />
+
+        <Button
+            android:id="@+id/plus_three"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:onClick="incrementThree"
+            android:text="+" />
+
+        <TextView
+            android:id="@+id/total_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bs.0" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Camionetas" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Disponible:" />
+
+        <TextView
+            android:id="@+id/avaibable_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0" />
+
+        <Button
+            android:id="@+id/less_four"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:onClick="decrementFour"
+            android:text="-" />
+
+        <TextView
+            android:id="@+id/count_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0" />
+
+        <Button
+            android:id="@+id/plus_four"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:onClick="incrementFour"
+            android:text="+" />
+
+        <TextView
+            android:id="@+id/total_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bs.0" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Motos" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Disponible:" />
+
+        <TextView
+            android:id="@+id/avaibable_five"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0" />
+
+        <Button
+            android:id="@+id/less_five"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:onClick="decrementFive"
+            android:text="-" />
+
+        <TextView
+            android:id="@+id/count_five"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0" />
+
+        <Button
+            android:id="@+id/plus_five"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:onClick="incrementFive"
+            android:text="+" />
+
+        <TextView
+            android:id="@+id/total_five"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bs.0" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Carga" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Disponible:" />
+
+        <TextView
+            android:id="@+id/avaibable_six"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0" />
+
+        <Button
+            android:id="@+id/less_six"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:onClick="decrementSix"
+            android:text="-" />
+
+        <TextView
+            android:id="@+id/count_six"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0" />
+
+        <Button
+            android:id="@+id/plus_six"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:onClick="incrementSix"
+            android:text="+" />
+
+        <TextView
+            android:id="@+id/total_six"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bs.0" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total:" />
+
+    <TextView
+        android:id="@+id/total_final"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bs. 0" />
+
+    <Button
+        android:id="@+id/continue_ticket"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="Continuar" />
 
 </LinearLayout>

@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.android.tesis">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_PRIVILEGED"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
@@ -24,13 +27,63 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.Schedule" />
-        <activity android:name=".activity.Login" />
-        <activity android:name=".activity.Register" />
-        <activity android:name=".activity.HomeUser"/>
-        <activity android:name=".activity.PerfilPrueba"/>
-        <activity android:name=".activity.TicketActivity"/>
-
+        <activity
+            android:name=".activity.Schedule"
+            android:label="@string/layout1_name"
+            android:parentActivityName=".activity.Schedule">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.Schedule" />
+        </activity>
+        <activity
+            android:name=".activity.Login"
+            android:label="@string/layout2_name"
+            android:parentActivityName=".activity.Login">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.Login" />
+        </activity>
+        <activity
+            android:name=".activity.Register"
+            android:label="Registro"
+            android:parentActivityName=".activity.Register">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.Register" />
+        </activity>
+        <activity
+            android:name=".activity.HomeUser"
+            android:label="Perfil"
+            android:parentActivityName=".activity.HomeUser">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.HomeUser" />
+        </activity>
+        <activity
+            android:name=".activity.TicketActivity"
+            android:label="@string/layout4_name"
+            android:parentActivityName=".activity.TicketActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.TicketActivity" />
+        </activity>
+        <activity
+            android:name=".activity.PayCredit"
+            android:label="Pago con TDC"/>
+        <activity
+            android:name=".activity.WayPay"
+            android:label="Escoger Forma de Pago"
+            android:parentActivityName=".activity.WayPay">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.WayPay" />
+        </activity>
+        <activity
+            android:name=".activity.PayDebito"
+            android:label="Pago Con TDD"/>
+        <activity
+            android:name=".network.MainBluetooth"
+            android:label="Proceso de pago"/>
     </application>
 
 </manifest>

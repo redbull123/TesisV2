@@ -1,5 +1,9 @@
 <resources>
-    <string name="app_name">ConferryAPP</string>
+    <string name="app_name">FerryAPP</string>
+    <string name="layout1_name">ITINERARIO</string>
+    <string name="layout2_name">INGRESO</string>
+    <string name="layout3_name">REGISTRO</string>
+    <string name="layout4_name">BOLETOS</string>
     <string name="iti_one">HORARIO</string>
     <string name="title_activity_login">Sign in</string>
 
@@ -15,11 +19,13 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="company">FERRY APP</string>
     <string name="image_1_Main">ITINERARIO</string>
     <string name="title_1_Main">REGISTRO</string>
-    <string name="text_3_login">Ingresar a ConferryAPP</string>
+    <string name="text_3_login">Ingresar</string>
+    <string name="text_4_login">Registrar</string>
     <string name="text_3_Main">LOGIN</string>
-    <string name="text_4_Main">FORUM</string>
+    <string name="text_4_Main">PLUS</string>
     <string name="text_5_Main">REGISTRAR</string>
     <string name="text_1_Register">NOMBRE</string>
     <string name="text_2_Register">APELLIDO</string>
@@ -38,9 +44,7 @@
     <string name="edit_text_6_Register">Ingrese Contraseña</string>
     <string name="edit_text_7_Register">Repita Contraseña</string>
 
-    <string name="button_1_Register">CANCELAR</string>
     <string name="button_2_Register">REGISTRAR</string>
-
 
     <string name="text_1_pay">Numero de tarjeta</string>
     <string name="edittext_1_pay">1234 1234 1234 1234</string>
@@ -48,6 +52,10 @@
     <string name="edittext_3_pay">CVC</string>
     <string name="edittext_4_pay">Tarjeta Habiente</string>
     <string name="edittext_5_pay">Continuar</string>
+
+    <string name="text_1_perfil">ITINERARIO</string>
+    <string name="text_2_perfil">COMPRAS</string>
+    <string name="text_3_perfil">CERRAR SESION</string>
 
 
 </resources>

@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:orientation="vertical"
-    tools:context=".activity.Register">
-
+    tools:context=".activity.PayCredit">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,28 +35,31 @@
                 android:layout_margin="5dp"
                 android:digits="1234567890"
                 android:gravity="center"
-                android:hint="@string/edittext_1_pay" />
+                android:hint="@string/edittext_1_pay"
+                android:inputType="phone"
+                android:maxLength="16" />
         </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/expiration_date"
+            <Button
+                android:id="@+id/fecha_vencimiento_credit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:hint="@string/edittext_2_pay" />
+                android:text="Seleccione fecha de vencimiento" />
 
             <EditText
                 android:id="@+id/cvc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:hint="@string/edittext_3_pay" />
-
-        </RelativeLayout>
+                android:digits="1234567890"
+                android:hint="@string/edittext_3_pay"
+                android:inputType="phone"
+                android:maxLength="3" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,25 +68,57 @@
 
             <EditText
                 android:id="@+id/tarjeta_habiente"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:gravity="center"
                 android:hint="@string/edittext_4_pay" />
-        </LinearLayout>
 
+            <EditText
+                android:id="@+id/tarjeta_habiente_apellido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:hint="Apellido" />
+
+        </LinearLayout>
     </LinearLayout>
 
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <Button
-            android:onClick="continuePay"
+        <TextView
+            android:id="@+id/marca_credit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@string/edittext_5_pay"
-            tools:ignore="OnClick" />
-    </RelativeLayout>
+            android:layout_alignParentLeft="true"
+            android:text="Marca"
+            android:textSize="20dp" />
+
+        <Spinner
+            android:id="@+id/marcas_credit_select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dialog"></Spinner>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/total_montotdc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="178dp"
+        android:layout_marginTop="20dp"
+        android:text="Monto a Pagar : BsS." />
+
+    <Button
+        android:id="@+id/pagar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/borde_redondo"
+        android:text="Realizar Pago"
+        android:textSize="20dp"
+        android:onClick="continuePay"/>
 </LinearLayout>
